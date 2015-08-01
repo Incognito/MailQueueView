@@ -1,3 +1,7 @@
+incognito_mail_queue_view:
+    resource: "@IncognitoMailQueueViewBundle/Resources/config/routing.xml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
