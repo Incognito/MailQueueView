@@ -1,1 +1,14 @@
-Hello {{ name }}!
+{% for message in messages %}
+    {{ message.id }}
+    {{ message.headers }}
+    {{ message.subject }}
+    {{ message.body }}
+    {{ message.contentType }}
+    {{ message.charset }}
+    {{ message.queuedAt|date("m/d/Y") }}
+    {{ message.sendAt|date("m/d/Y") }}
+    {{ message.sender }}
+    {{ message.recipients }}
+    {{ message.recipientsCC }}
+    {{ message.recipientsBCC }}
+{% endfor %}
