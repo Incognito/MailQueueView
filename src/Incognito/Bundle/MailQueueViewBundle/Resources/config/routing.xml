@@ -7,4 +7,7 @@
     <route id="incognito_mail_queue_view_homepage" path="/">
         <default key="_controller">IncognitoMailQueueViewBundle:Default:index</default>
     </route>
+    <route id="incognito_mail_queue_view_message_body" path="/message/{message}">
+        <default key="_controller">IncognitoMailQueueViewBundle:Default:message</default>
+    </route>
 </routes>

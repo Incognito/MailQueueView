@@ -2,8 +2,6 @@
 
 namespace Incognito\Bundle\MailQueueViewBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Message
  */

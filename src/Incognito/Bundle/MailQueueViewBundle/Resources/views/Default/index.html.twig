@@ -6,7 +6,7 @@
         <ul id="inboxTabs" class="tabs vertical" data-tab>
             {% for message in messages %}
                 <li class="tab-title {% if loop.first %}active{% endif %}">
-                  <a href="#panel{{ message.id }}">{{ message.headers }} {{ message.sender }}</a>
+                  <a href="#panel{{ message.id }}">{{ message.subject }} {{ message.sender }}</a>
                 </li>
             {% endfor %}
         </ul>
@@ -15,18 +15,26 @@
             {% for message in messages %}
                 <div class="content {% if loop.first %}active{% endif %}" id="panel{{message.id}}">
                     <p>
-                    {{ message.id }}
-                    {{ message.headers }}
-                    {{ message.subject }}
-                    {{ message.body }}
-                    {{ message.contentType }}
-                    {{ message.charset }}
-                    {{ message.queuedAt|date("m/d/Y") }}
-                    {{ message.sendAt|date("m/d/Y") }}
-                    {{ message.sender }}
-                    {{ message.recipients }}
-                    {{ message.recipientsCC }}
-                    {{ message.recipientsBCC }}
+                    <div class="panel">
+                        <h2>({{ message.id }}) {{ message.subject }}</h2>
+                        <pre> {{ message.headers }}</pre>
+                        {{ message.contentType }}
+                        {{ message.charset }}
+                        {{ message.queuedAt|date("m/d/Y") }}
+                        {{ message.sendAt|date("m/d/Y") }}
+                    </div>
+                    <div class="panel">
+                        {{ message.sender }}
+                        {{ message.recipients }}
+                        {{ message.recipientsCC }}
+                        {{ message.recipientsBCC }}
+                    </div>
+                    <iframe sandbox src="{{
+                        path(
+                            'incognito_mail_queue_view_message_body',
+                            {message: message.id}
+                        )
+                    }}"></iframe>
                     </p>
                 </div>
             {% endfor %}

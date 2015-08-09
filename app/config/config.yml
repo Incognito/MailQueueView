@@ -31,6 +31,14 @@ framework:
     fragments:       ~
     http_method_override: true
 
+sensio_framework_extra:
+    router:      { annotations: false }
+    request:     { converters: true, auto_convert: true }
+    view:        { annotations: false }
+    cache:       { annotations: false }
+    security:    { annotations: false }
+    psr_message: { enabled: false }
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
