@@ -27,8 +27,38 @@ class LoadUserData implements FixtureInterface
             ->setRecipientsCC('')
             ->setRecipientsBCC('')
         ;
-
         $manager->persist($message);
+
+        $message = new Message();
+        $message->setSubject('Test subject2')
+            ->setBody('Hello world2')
+            ->setHeaders('')
+            ->setContentType('')
+            ->setCharset('')
+            ->setQueuedAt(new \DateTime())
+            ->setSendAt(new \DateTime())
+            ->setSender('Sender sender@example.com')
+            ->setRecipients('recip@example.com')
+            ->setRecipientsCC('')
+            ->setRecipientsBCC('')
+        ;
+        $manager->persist($message);
+
+        $message = new Message();
+        $message->setSubject('Test subject3')
+            ->setBody('Hello world3')
+            ->setHeaders('')
+            ->setContentType('')
+            ->setCharset('')
+            ->setQueuedAt(new \DateTime())
+            ->setSendAt(new \DateTime())
+            ->setSender('Sender sender@example.com')
+            ->setRecipients('recip@example.com')
+            ->setRecipientsCC('')
+            ->setRecipientsBCC('')
+        ;
+        $manager->persist($message);
+
         $manager->flush();
     }
 }
