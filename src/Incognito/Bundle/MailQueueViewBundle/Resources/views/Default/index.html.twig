@@ -1,43 +1,61 @@
 {% extends "IncognitoMailQueueViewBundle:Default:base.html.twig" %}
 
 {% block content %}
-    <section role="main" class="scroll-container">
-
-        <ul id="inboxTabs" class="tabs vertical" data-tab>
+<div class="row">
+    <div class="small-2 large-4 columns">
+        <ul id="inboxTabs" class="tabs" data-tab>
             {% for message in messages %}
                 <li class="tab-title {% if loop.first %}active{% endif %}">
                   <a href="#panel{{ message.id }}">{{ message.subject }} {{ message.sender }}</a>
                 </li>
             {% endfor %}
         </ul>
-
-        <div class="tabs-content">
-            {% for message in messages %}
-                <div class="content {% if loop.first %}active{% endif %}" id="panel{{message.id}}">
-                    <p>
-                    <div class="panel">
-                        <h2>({{ message.id }}) {{ message.subject }}</h2>
-                        <pre> {{ message.headers }}</pre>
-                        {{ message.contentType }}
-                        {{ message.charset }}
-                        {{ message.queuedAt|date("m/d/Y") }}
-                        {{ message.sendAt|date("m/d/Y") }}
+    </div>
+    <div class="small-8 large-8 columns">
+        <section role="main" class="scroll-container">
+            <div class="tabs-content">
+                {% for message in messages %}
+                    <div class="content {% if loop.first %}active{% endif %}" id="panel{{message.id}}">
+                        <div class="panel">
+                            <h3>({{ message.id }}) {{ message.subject }}</h3>
+                        </div>
+                        <iframe
+                            width="100%"
+                            height="400px"
+                            style="border: 0"
+                            sandbox
+                            src="{{
+                                path(
+                                    'incognito_mail_queue_view_message_body',
+                                    {message: message.id}
+                                )
+                            }}"
+                        ></iframe>
+                        <div class="panel">
+                            <h5>Headers:</h5>
+                            <pre> {{ message.headers }}</pre>
+                            <h5>From:</h5> {{ message.sender }}
+                            <h5>To:</h5> {{ message.recipients }}
+                            <h5>CC:</h5> {{ message.recipientsCC }}
+                            <h5>BCC:</h5> {{ message.recipientsBCC }}
+                        </div>
+                        <div class="panel">
+                            <h5>Content Type:</h5>
+                            {{ message.contentType }}
+                            <br>
+                            <h5>Charset:</h5>
+                            {{ message.charset }}
+                            <br>
+                            <h5>Queued at:</h5>
+                            {{ message.queuedAt|date("m/d/Y") }}
+                            <br>
+                            <h5>Send at:</h5>
+                            {{ message.sendAt|date("m/d/Y") }}
+                        </div>
                     </div>
-                    <div class="panel">
-                        {{ message.sender }}
-                        {{ message.recipients }}
-                        {{ message.recipientsCC }}
-                        {{ message.recipientsBCC }}
-                    </div>
-                    <iframe sandbox src="{{
-                        path(
-                            'incognito_mail_queue_view_message_body',
-                            {message: message.id}
-                        )
-                    }}"></iframe>
-                    </p>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
 {% endblock content %}
